@@ -1,0 +1,31 @@
+% Note: in this chapter figure labels refer to the figure number in the submitted manuscript
+\chapter{Long and very descriptive title for chapter 1}\label{chapter:chapter1}
+\chaptermark{Short title} % Longer chapter names overflow in the contents, so optionally include 
+\chapcites{
+    The work in this chapter has been published in~\textcite{mendel1865}.
+    The text and figures have been adapted from that publication.
+    These parts were done in collaboration with other members of my group.
+} % Add text under title detailing where this work is published, or other acknowledgements such as collaborative work.
+\chapfigures{} % This chapter contains figures, so add a chapter line in table of figures
+
+\lipsum[10-14] % chktex 8
+
+\section{Some results}
+
+\lipsum[2]
+\refer{fig:chapter1:figure1} and \refer{tab:chapter1:example_table}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.88\textwidth]{front/UniversityCrest.pdf}
+    \caption[An example figure]{
+        \textbf{A:}~A panel caption.
+        \textbf{B:}~Another panel caption, about \hsapiens{}.
+    }\label{fig:chapter1:figure1}
+\end{figure}
+
+\lipsum[5-8] % chktex 8
+
+\section{Discussion}
+
+\lipsum[3]

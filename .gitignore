@@ -1,0 +1,16 @@
+# Ignore generated files
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.tdo
+*.run.xml
+~$*

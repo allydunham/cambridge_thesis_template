@@ -1,0 +1,49 @@
+%% Commands %%
+% Wrapper for referring to other sections using the correct term (section, figure etc.) and number in italics.
+\newcommand{\refer}[2][]{\emph{\Cref{#2}#1}}
+% Add text under chapter headings before the main text, for example to acknowledge collaborations or where the work in the chapter is published.
+\newcommand{\chapcites}[1]{\vspace{-\baselineskip}\vspace{0em}\emph{#1}\vspace{2em}} 
+
+% Add chapters to lof/lot if appropriate
+% Add these commands at the start of any chapter that contains figures/tables to get a corresponding chapter separator 
+\makeatletter{}
+\newcommand{\chapfigures}{\addcontentsline{lof}{chapter}{\textbf{\@chapapp\ \thechapter\vspace{1em}}}}
+\newcommand{\chaptables}{\addcontentsline{lot}{chapter}{\textbf{\@chapapp\ \thechapter\vspace{1em}}}}
+\makeatother{}
+
+%% Common Terms %%#
+% These are some common terms I used - I found it useful to have macros to keep formatting consistent and allow it to be modified easily
+\newcommand{\ddG}{\ensuremath{\Delta \Delta G}}
+\newcommand{\foldx}{FoldX}
+\newcommand{\sift}{SIFT4G}
+\newcommand{\logsift}{\ensuremath{\log_{10}{\text{\sift}}}}
+
+%% Maths %%
+\newcommand{\prob}[1]{\ensuremath{P(#1)}} % A styled probability
+\newcommand{\abs}[1]{\ensuremath{\lvert{}#1\rvert{}}} % Absolute values
+\newcommand{\xten}[1]{\ensuremath{\times 10^{#1}}} % Scientific formatting in math mode (also can use SIunitx)
+\newcommand*{\vprime}{\turnbox{12}{\(\,'\)}\;} % Superscript prime with a pleasing rotation % chktex 21
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}} % Matrix
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}} % Vector
+% Note the bm package did not work in my setup, if it works for you it could replace mathbf here for more pleasing bold fonts.
+
+%% Species %%
+% I developed a command for linnaean species names, which uses the long name the first time its called and the short name subsequently.
+% This stops you worrying about the first mention of each species if you want to use the long name.
+% Its probably not really necessary to use the long name for most species people will reference as they are likely to be well known already, but it was pleasing to have it setup nicely.
+% It is demonstrated by two uses of \hsapiens{} in the text.
+
+% Meta Command %
+\newcommand{\species}[3]{\newcommand{#1}{\gdef#1{\textit{#3}}\textit{#2}}}
+
+% Species List %
+\species{\hsapiens}{Homo sapiens}{H.~sapiens}
+\species{\ecoli}{Escherichia coli}{E.~coli}
+\species{\scerevisiae}{Saccharomyces cerevisiae}{S.~cerevisiae}
+\species{\mmusculus}{Mus musculus}{M.~musculus}
+\species{\dmelanogaster}{Drosophila melanogaster}{D.~melanogaster}
+
+%% Genes and Proteins
+% Give genes and proteins consistent styling and allow you to change style across the whole document easily.
+\newcommand{\gene}[1]{\textit{#1}}
+\newcommand{\protein}[1]{#1}

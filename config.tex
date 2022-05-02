@@ -1,0 +1,143 @@
+%%% Layout %%%
+% Setup page layout (all based on memoir class commands)
+\settrims{0pt}{0pt}
+\setlrmarginsandblock{3.2cm}{2.3cm}{*}
+\setulmarginsandblock{4cm}{3cm}{*}
+\setheadfoot{2cm}{1.25cm}
+\setheaderspaces{*}{1.5cm}{*}
+\setlength{\topskip}{1.6\topskip}
+\checkandfixthelayout{}
+
+%%% Spacing %%%
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+\OnehalfSpacing{}
+\raggedbottomsection{}
+\sloppybottom{}
+
+%%% Contents %%%
+% Settings for the table of contents
+\setlength{\cftfigurenumwidth}{2.75em}
+\setlength{\cfttablenumwidth}{2.75em}
+\setsecnumdepth{section}
+\bibintoc{}
+
+%%% Headings %%%
+% Make a custom heading style for chapter and combine with ntglike headings.
+\makechapterstyle{custom}{%
+    \setlength{\beforechapskip}{-4em}
+    \renewcommand*{\chapnamefont}{\huge\centering}
+    \renewcommand*{\chapnumfont}{\HUGE\centering}
+    \renewcommand*{\printchapternonum}{%
+        \vphantom{\chapnumfont\ 1}%
+        \afterchapternum{}%
+        \vspace{-\baselineskip}%
+    }
+    \renewcommand*{\printchaptername}{}
+    \renewcommand*{\printchapternum}{%
+        \chapnumfont\rule[10pt]{25pt}{0.25pt} \thechapter{} \rule[10pt]{25pt}{0.25pt}%
+    }
+    \renewcommand*{\chaptitlefont}{\HUGE\bfseries}
+    \renewcommand*{\printchaptertitle}[1]{%
+        \vspace{-0.8em}\centering\chaptitlefont\ ##1
+    }
+}
+
+\headstyles{ntglike}
+\chapterstyle{custom}
+
+%%% Headers %%%
+% Setup clean headers for front matter (page number only)
+\makepagestyle{footeronly}
+\makeevenhead{footeronly}{}{}{}
+\makeoddhead{footeronly}{}{}{}
+\makeevenfoot{footeronly}{\thepage}{}{}
+\makeoddfoot{footeronly}{}{}{\thepage}
+
+% More detail in main matter (title, chapter, page number)
+\makepagestyle{main}
+\makeevenhead{main}{\leftmark}{}{}
+\makeoddhead{main}{}{}{\rightmark}
+\makeevenfoot{main}{\thepage}{}{}
+\makeoddfoot{main}{}{}{\thepage}
+\makeheadrule{main}{\textwidth}{0.25pt}
+\makeatletter
+\makepsmarks{main}{%
+    \createmark{chapter}{left}{shownumber}{\@chapapp\ }{\ ---\ }
+    \createmark{section}{right}{nonumber}{}{}
+    \createplainmark{toc}{both}{\contentsname}
+    \createplainmark{lof}{both}{\listfigurename}
+    \createplainmark{lot}{both}{\listtablename}
+    \createplainmark{bib}{both}{\bibname}
+    \createplainmark{index}{both}{\indexname}
+    \createplainmark{glossary}{both}{\glossaryname} 
+}
+\makeatother
+
+\aliaspagestyle{chapter}{footeronly}
+\aliaspagestyle{plain}{footeronly}
+\nouppercaseheads{}
+\pagestyle{main}
+
+%%% Captions %%%
+% Setup figure caption formatting
+\captionnamefont{\small\bfseries}
+\captiontitlefont{\small}
+
+%%% Packages %%%
+\usepackage{silence}
+\WarningFilter{fmtcount}{\ordinal already defined} % chktex 1
+\WarningFilter{biblatex}{The starred command} % chktex 1
+\usepackage{pgffor}
+\usepackage{etoolbox}
+
+%% Text %%
+\usepackage[nopatch=eqnum]{microtype}
+\usepackage{polyglossia}
+\setmainlanguage[variant=british]{english}
+\usepackage{csquotes}
+\usepackage[nodayofweek]{datetime}
+\usepackage[T1]{fontenc} % I could not get Unicode to setup properly, if that is important to you for more fonts you will need to mess around here.
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{lipsum} % can delete this for real thesis...
+
+%% Maths %%
+\usepackage{mathptmx}
+\usepackage{amsmath}
+
+% No brackets around equation numbers
+\makeatletter
+\renewcommand\tagform@[1]{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}} % chktex 21
+\makeatother
+
+%% Graphics %%
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[group-separator={,},group-minimum-digits={5}]{siunitx}
+\DeclareSIUnit\Molar{\textsc{m}} % Some useful common units that SIunitx misses.
+\DeclareSIUnit\angstrom{\textup{\AA}}
+\graphicspath{{./figures}}
+
+%% Referencing %%
+% Use biblatex with biber backend. Customise this to define citation styles.
+\usepackage[
+    backend=biber,
+    style=apa,
+    citestyle=authoryear-comp,
+    date=year,
+    labeldate=year,
+    uniquename=false,
+    uniquelist=false
+]{biblatex}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage[hidelinks]{hyperref}
+\usepackage{nameref}
+\usepackage[nameinlink]{cleveref}
+
+% No brackets in clever ref equation format
+\creflabelformat{equation}{#2\textup{#1}#3}

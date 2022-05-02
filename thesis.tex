@@ -1,0 +1,59 @@
+% Compiled using LuaTex 1.13.2 on TeX 3.141592653 based on TeX Live 2021
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[a4paper,12pt,extrafontsizes,twoside,openright,final]{memoir}
+
+\input{config.tex}
+\input{macros.tex}
+
+\addbibresource{thesis.bib} % Tell biblatex where the bibliography data is.
+
+% Set these macros to your own values
+\newcommand{\myname}{Author Name}
+\newcommand{\college}{College Name}
+\newcommand{\supervisor}{Supervisor Name}
+\newcommand{\thesistitle}{Thesis Title}
+\newcommand{\submissiondate}{\formatdate{1}{1}{2000}}
+
+% PDF Metadata
+\hypersetup{
+	pdftitle=\thesistitle,
+	pdfauthor=\myname,
+	pdfdisplaydoctitle=true
+}
+
+%%% Main Document %%%
+\begin{document}
+
+\frontmatter{}
+\input{front/titlepage.tex}
+
+\aliaspagestyle{cleared}{footeronly} % Numbers in centre bottom of page in front matter .
+\input{front/declaration.tex} % The exact number of words and faculty will depend on which department you are in.
+\input{front/abstract.tex}
+\openany{} % Allow "chapters" to open on either page, rather than just right, so the acknowledgements and contents don't have lots of gaps.
+\input{front/dedication.tex}
+\input{front/acknowledgements.tex}
+
+\clearpage{}
+\tableofcontents{}
+\clearpage{}
+\listoffigures{}
+\clearpage{}
+\listoftables{}
+
+\mainmatter{}
+\openright{} % Return to chapters opening on right pages
+\input{main/introduction.tex}
+\input{main/chapter1.tex}
+\input{main/discussion.tex}
+
+\appendix{} % Set chapters to appendix styled
+\appendixpage{} % Add full page stating appendices start here
+\input{back/supplementary_figures.tex}
+\input{back/supplementary_tables.tex}
+\input{back/published_works.tex}
+
+\backmatter{}
+\printbibliography{}
+
+\end{document}
